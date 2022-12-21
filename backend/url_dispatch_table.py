@@ -1,4 +1,5 @@
 from url_registry import UrlRegistry
+import crawl_impl as ci
 
 """
 A class that stores a mapping from URLs to functions and flags.
@@ -12,17 +13,16 @@ class DispatchFlags:
 
 class UrlDispatchTable(object):
     DISPATCH_TABLE = [
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x
+        lambda url: ci.crawl_la_olivia(url),
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
     ]
     """
     A list of dispatch functions that are used to populate the dispatch table.
@@ -51,7 +51,7 @@ class UrlDispatchTable(object):
             assert func is not None and callable(func) and func.__name__ == '<lambda>'
         print(f'Dispatch table online - {i} dispatch pairs available')
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> []:
         """
         Calls the dispatch functions in the table for each URL.
 
@@ -59,9 +59,15 @@ class UrlDispatchTable(object):
         param kwargs: Keyword arguments to be passed to the dispatch functions.
         """
         print(f'Invoking dispatch table... {len(self.table)} entries')
+        ret = []
         for k, v in self.table.items():
             (flags, func) = v
-            func(k)
+            r = func(k)
+            if r is not None:
+                ret.append(r)
+            else:
+                print(f'Failed to crawl url: \'{k}\'')
+        return ret
 
     def _populate(self):
         """
