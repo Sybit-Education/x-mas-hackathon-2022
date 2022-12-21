@@ -1,8 +1,6 @@
-def main():
-    print('(c) Sybit GmbH 2022')
-    print('Launching...')
-    return
+from app import app
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run(debug=True)
+
