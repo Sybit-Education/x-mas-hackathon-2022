@@ -23,6 +23,7 @@ class UrlDispatchTable(object):
         lambda url: None,
         lambda url: None,
         lambda url: None,
+        lambda url: None
     ]
     """
     A list of dispatch functions that are used to populate the dispatch table.
