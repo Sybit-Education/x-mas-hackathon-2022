@@ -3,6 +3,7 @@
     <button @click="$router.push({ name: 'home' })">Go Back</button>
   </div>
   <h1>Details</h1>
+  <p>Name</p>
 </template>
 
 <script>
