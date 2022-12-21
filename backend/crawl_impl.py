@@ -2,8 +2,10 @@ from bs4 import BeautifulSoup
 from dto import *
 from crawler import Crawler
 
+
 def clean(x: str) -> str:
     return ''.join([i if ord(i) < 0x7F else ' ' for i in x.replace('€', 'Euro')])
+
 
 def get_menu(soup: BeautifulSoup, k: str, f) -> MenuDto:
     menu = soup.find(name='div', attrs={'id': k}).find('div').find('div')
@@ -12,6 +14,7 @@ def get_menu(soup: BeautifulSoup, k: str, f) -> MenuDto:
     description = clean(f(description))
     price = clean(menu.find_all('h6')[1].contents[0])
     return MenuDto(name=name, description=description, price=price)
+
 
 def crawl_la_olivia(url: str) -> RestaurantDto:
     soup = BeautifulSoup(Crawler.crawl(url), 'html.parser')

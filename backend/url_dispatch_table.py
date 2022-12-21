@@ -6,6 +6,8 @@ A class that stores a mapping from URLs to functions and flags.
 The functions in the mapping are called 'dispatch functions'.
 The flags are used to control the behavior of the dispatch functions.
 """
+
+
 class DispatchFlags:
     NONE = 0 << 0
     SKIP = 1 << 0
@@ -29,7 +31,6 @@ class UrlDispatchTable(object):
     A list of dispatch functions that are used to populate the dispatch table.
     """
 
-
     def __init__(self, registry: UrlRegistry, init_flags=DispatchFlags.NONE):
         """
         Initializes the dispatch table.
@@ -38,7 +39,8 @@ class UrlDispatchTable(object):
         param init_flags: An integer representing the initial flags for each dispatch function in the table.
         """
         self.table = {}
-        assert len(self.DISPATCH_TABLE) == len(registry.get_urls), 'Dispatch table length is different from url registry length'
+        assert len(self.DISPATCH_TABLE) == len(
+            registry.get_urls), 'Dispatch table length is different from url registry length'
         for url in registry.get_urls:
             self.table[url] = (init_flags, None)
         self._populate()
