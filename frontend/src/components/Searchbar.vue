@@ -13,6 +13,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.form-button {
+  background-color: #00bd7e;
+  height: auto;
+}
 </style>

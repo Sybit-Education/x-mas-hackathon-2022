@@ -19,8 +19,4 @@ input{
   width: 87%;
   height: 30px;
 }
-.form-button {
-  background-color: #00bd7e;
-  height: 30px;
-}
 </style>
