@@ -1,7 +1,6 @@
 import json
 
 from flask import Flask
-from endpoints.country import get_countries
 from url_registry import UrlRegistry
 from url_dispatch_table import UrlDispatchTable
 
