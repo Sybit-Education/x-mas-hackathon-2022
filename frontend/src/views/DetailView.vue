@@ -1,14 +1,14 @@
 <template>
   <h1 class="header">Details</h1>
-  <RestaurantGrid/>
+  <RestaurantGrid />
 </template>
 
-<script>
+<script lang="ts">
 import RestaurantGrid from "@/components/RestaurantGrid.vue"
 export default {
-  name: "Detail.vue",
-  components: {RestaurantGrid}
-}
+  name: "DetailView",
+  components: { RestaurantGrid },
+};
 </script>
 
 <style>
@@ -16,5 +16,4 @@ export default {
   color: #00bd7e;
   margin-bottom: 15px;
 }
-
 </style>
