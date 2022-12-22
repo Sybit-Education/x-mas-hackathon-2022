@@ -1,7 +1,7 @@
 import json
 
 from flask import Flask
-from endpoints.country import get_countries
+from services.restaurant import get_all_restaurants
 from url_registry import UrlRegistry
 from url_dispatch_table import UrlDispatchTable
 
@@ -14,3 +14,8 @@ dispatch_table()
 @app.route('/lunch', methods=['GET'])
 def route_get_lunch():
     return json.dumps(dispatch_table(), default=vars)
+
+
+@app.route('/restaurant', methods=['GET'])
+def route_get_restaurant():
+    return get_all_restaurants()
