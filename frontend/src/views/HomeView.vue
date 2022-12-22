@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import Searchbar from "@/components/Searchbar.vue"
+import Searchbar from "@/components/SearchingBar.vue"
 </script>
 
 <style>
