@@ -1,45 +1,44 @@
 <template>
-  <div class="grid-container">
-    <div class="restaurant">TestRestaurant</div>
-    <div class="desc">Mehr infos</div>
-    <div class="desc">
-      <p><a class="link" href="https://www.google.de/">Zum Mittagstisch</a>
-      </p></div>
-    <div class="restaurant">TestRestaurant2</div>
-    <div class="desc">Beschreibung</div>
-    <div class="desc">
-      <p><a class="link" href="https://www.google.de/">Zum Mittagstisch</a></p>
-    </div>
+<li v-for="lunch in lunches">
+ <div class="grid-container">
+    <div class="restaurant">{{lunch.restaurant_id}}</div>
+    <div class="name">{{lunch.name}}</div>
+    <div class="desc">{{lunch.description}}</div>
+    <div class="price">{{lunch.price}}€</div>
+    <div class="desc"></div>
+  </div>
+</li>
+  <div>
+    {{ lunches }}
   </div>
 </template>
 
 <script lang="ts">
 export default {
   data() {
-    return {
-      
-      lunch: {
-        id: String,
-        createdTime: String,
-        fields: Array<{ 
-          date: Date,
-          restaurant: String,
-          name: String,
-          description: String,
-          Price: GLfloat
-        }>
-      }
+    return{
+      lunches: Array<{}>
     }
   },
   created() {
-    fetch('http:127.0.0.1:5000/v1/lunch').then(response => {
-      this.lunch = response
-    }, error => {
+    fetch(':5000/v1/lunch').then(response => {
+      let raw:{} = JSON.stringify(response)
+      let lunches: Array<{}> = new Array<{}>();
+      for(let rawData in raw){
+        let restaurant_id = rawData.restaurant_id;
+            let date = rawData.date;
+            let name = rawData.name;
+            let description = rawData.description;
+            let price = rawData.price;
+        lunches.push({restaurant_id:restaurant_id,date:date,name:name,description:description,price:price});
+      }
+      this.lunches = lunches;
+
+        }, error => {
       console.log(error)
     }
     )
-    console.log(this.lunch)
-  }
+  },
 }
 </script>
 
