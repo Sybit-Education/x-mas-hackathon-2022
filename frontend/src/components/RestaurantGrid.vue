@@ -13,19 +13,32 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: "RestaurantGrid.vue",
-  props:{
-    restaurantId: {
-      type: String,
-      required: true,
-    }
-  },
   data() {
     return {
-      restaurant: null,
+      
+      lunch: {
+        id: String,
+        createdTime: String,
+        fields: Array<{ 
+          date: Date,
+          restaurant: String,
+          name: String,
+          description: String,
+          Price: GLfloat
+        }>
+      }
     }
+  },
+  created() {
+    fetch('http:127.0.0.1:5000/v1/lunch').then(response => {
+      this.lunch = response
+    }, error => {
+      console.log(error)
+    }
+    )
+    console.log(this.lunch)
   }
 }
 </script>

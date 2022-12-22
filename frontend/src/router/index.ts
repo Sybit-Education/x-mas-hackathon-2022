@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/detail',
       name: 'detail',
-      component: () => import('../views/Detail.vue')
+      component: () => import('../components/RestaurantGrid.vue')
     }
   ]
 })
