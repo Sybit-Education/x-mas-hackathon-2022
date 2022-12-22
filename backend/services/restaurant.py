@@ -13,8 +13,10 @@ def get_all_restaurants():
         for record in records:
             print(record)
             fields = record["fields"]
-            restaurant = RestaurantDto()
+            restaurant = RestaurantDto(record['id'])
             restaurant.name = fields["Name"]
+            restaurant.homepage = fields["Homepage"]
+            restaurant.lunch_source = fields["Link_Mittagstisch"]
 
             restaurants.append(restaurant)
     return restaurants
