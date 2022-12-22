@@ -20,6 +20,7 @@ def get_all_restaurants():
             restaurant.city = fields["City"] if "City" in fields else None
             restaurant.logo = fields["Logo"][0]["url"] if "Logo" in fields else None
             restaurant.crawler_id = fields["Crawler_id"] if "Crawler_id" in fields else None
+            restaurant.notes = fields["Notes"] if "Notes" in fields else None
 
             restaurants.append(restaurant)
     return restaurants
