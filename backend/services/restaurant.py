@@ -15,9 +15,10 @@ def get_all_restaurants():
             fields = record["fields"]
             restaurant = RestaurantDto(record['id'])
             restaurant.name = fields["Name"]
-            restaurant.homepage = fields["Homepage"]
             restaurant.lunch_source = fields["Link_for_Lunch"]
-            restaurant.city = fields["City"]
+            restaurant.homepage = fields["Homepage"]  if "Homepage" in fields else None
+            restaurant.city = fields["City"] if "City" in fields else None
+            restaurant.logo = fields["Logo"][0]["url"] if "Logo" in fields else None
 
             restaurants.append(restaurant)
     return restaurants
