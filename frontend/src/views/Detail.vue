@@ -3,7 +3,7 @@
   <RestaurantGrid/>
 </template>
 
-<script>
+<script lang="ts">
 import RestaurantGrid from "@/components/RestaurantGrid.vue"
 export default {
   name: "Detail.vue",
