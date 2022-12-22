@@ -18,4 +18,4 @@ def route_get_lunch():
 
 @app.route('/restaurant', methods=['GET'])
 def route_get_restaurant():
-    return get_all_restaurants()
+    return json.dumps(get_all_restaurants(), default=vars)
