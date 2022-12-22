@@ -1,5 +1,6 @@
 from crawlers import la_olivia
 from dto.restaurant_dto import RestaurantDto
+from crawlers import la_olivia, biocatering_safran
 from url_registry import UrlRegistry
 from services.lunch import add_lunch
 from services.restaurant import get_all_restaurants
@@ -27,6 +28,7 @@ class UrlDispatchTable(object):
 
     DISPATCH_TABLE = {
         'la_oliva': lambda url: la_olivia.LaOliviaCrawler().crawl(url),
+        'safran': lambda url: biocatering_safran.BioCateringCrawler().crawl(url)
     }
     """
     A list of dispatch functions that are used to populate the dispatch table.
