@@ -24,7 +24,7 @@ def get_today_lunch():
 
 
 def add_lunch(restaurant_id, menu_dto):
-    print("add lunch: restaurant_id=" + restaurant_id + " menu: " + menu_dto)
+    print("add lunch: restaurant_id=" + restaurant_id + " menu: " + menu_dto.name)
 
     api_key = os.environ['AIRTABLE_API_KEY']
     base_key = os.environ['AIRTABLE_BASE_KEY']
