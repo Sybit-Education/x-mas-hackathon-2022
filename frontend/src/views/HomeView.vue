@@ -1,20 +1,16 @@
 <template>
-  <img src="../assets/milanesa-napolitana-ensalada.jpg">
-  <Searchbar/>
+  <RestaurantGrid/>
 </template>
 
-<script setup lang="ts">
-import Searchbar from "@/components/Searchbar.vue"
+<script>
+import RestaurantGrid from "@/components/RestaurantGrid.vue"
+export default {
+  name: "Detail.vue",
+  components: {RestaurantGrid}
+  
+}
 </script>
 
 <style>
-img {
-  display: block;
-  margin: 15px auto 20px;
-  width: 50%;
-}
-input{
-  width: 87%;
-  height: 30px;
-}
+
 </style>
