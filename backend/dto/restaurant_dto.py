@@ -5,4 +5,5 @@ class RestaurantDto:
         self.name = ''
         self.homepage = ''
         self.lunch_source = ''
+        self.city = ''
         self.menus = []

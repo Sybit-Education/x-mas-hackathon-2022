@@ -17,6 +17,7 @@ def get_all_restaurants():
             restaurant.name = fields["Name"]
             restaurant.homepage = fields["Homepage"]
             restaurant.lunch_source = fields["Link_Mittagstisch"]
+            restaurant.city = fields["City"]
 
             restaurants.append(restaurant)
     return restaurants
