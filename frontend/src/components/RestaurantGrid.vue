@@ -50,15 +50,19 @@ export default {
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
-  padding: 10px;
+  padding-top: 20px;
 }
 
 .restaurant {
-  color: #07d995;
-  font-size: large;
+  color: #b51783;
+  font-size: 20px;
 }
 
 .link {
   color: #3ca2ef;
+  font-size: 20px;
+}
+.desc {
+  font-size: 25px;
 }
 </style>

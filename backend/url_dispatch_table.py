@@ -4,6 +4,7 @@ from crawlers import la_olivia, biocatering_safran
 from url_registry import UrlRegistry
 from services.lunch import add_lunch
 from services.restaurant import get_all_restaurants
+from datetime import datetime
 
 """
 A class that stores a mapping from URLs to functions and flags.
@@ -69,6 +70,7 @@ class UrlDispatchTable(object):
                     rid = r.id
                     break
             for m in r.menus:
+                m = datetime.now()
                 add_lunch(rid, m)
             ret.append(r)
         return ret
