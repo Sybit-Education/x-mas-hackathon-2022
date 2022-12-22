@@ -21,7 +21,8 @@ export const useMenuStore = defineStore("meun", {
           name: item.name,
           date: item.date,
           description: item.description,
-          price: item.price
+          price: item.price,
+          restaurant_id: item.restaurant_id
         }
         this.menus.push(menu)
       })
