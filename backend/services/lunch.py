@@ -15,7 +15,7 @@ def get_today_lunch():
         for record in records:
             fields = record["fields"]
             menu = MenuDto(fields["Date"], fields["Name"])
-            menu.description = fields["Description"]
+            menu.description = fields["Description"] if "Description" in fields else None
             menu.price = fields["Price"]
             menu.restaurant_id = fields["Restaurant"][0]
             lunch_list.append(menu)
