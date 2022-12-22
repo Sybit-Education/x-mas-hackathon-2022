@@ -17,14 +17,6 @@ class UrlDispatchTable(object):
     DISPATCH_TABLE = [
         lambda url: ci.crawl_la_olivia(url),
         lambda url: None,
-        lambda url: None,
-        lambda url: None,
-        lambda url: None,
-        lambda url: None,
-        lambda url: None,
-        lambda url: None,
-        lambda url: None,
-        lambda url: None,
         lambda url: None
     ]
     """

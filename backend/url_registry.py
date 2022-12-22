@@ -1,6 +1,5 @@
-import json
+from services.restaurant import get_all_restaurants
 from os import getcwd, name as osname
-from os.path import exists
 
 
 class UrlRegistry(object):
@@ -19,21 +18,16 @@ class UrlRegistry(object):
         Parameters:
         *opt_urls (str): Optional URL(s) to add to the registry.
         """
-        try:
-            print(f'Loading urls from: {self.URL_FILE}')
-            with open(self.URL_FILE) as f:
-                self._urls = json.loads(f.read()) if exists(self.URL_FILE) else []
-        except Exception as e:
-            print(f'Failed to load urls from JSON: {self.URL_FILE}')
-            self._urls = []
-            raise e
-        finally:
-            for url in opt_urls:
-                self._urls.append(url)
-            self._urls = [(lambda x: x.lower())(x) for x in self._urls]
-            for i in range(len(self._urls)):
-                print(f'Url #{i}: \'{self._urls[i]}\'')
-            print(f'URL registry online {len(self._urls)} available')
+        restaurants = get_all_restaurants()
+        self._urls = []
+        for r in restaurants:
+            self._urls.append(r.lunch_source)
+        for url in opt_urls:
+            self._urls.append(url)
+        self._urls = [(lambda x: x.lower())(x) for x in self._urls]
+        for i in range(len(self._urls)):
+            print(f'Url #{i}: \'{self._urls[i]}\'')
+        print(f'URL registry online {len(self._urls)} available')
 
     def lookup(self) -> int:
         """

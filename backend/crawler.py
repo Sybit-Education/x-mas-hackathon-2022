@@ -10,9 +10,10 @@ class Crawler:
     def crawl(url: str) -> str:
         print(f'Crawling: \'{url}\'')
 
-        proxy = urllib.request.ProxyHandler({'http': os.environ['HTTP_PROXY'], 'https': os.environ['HTTPS_PROXY']})
-        opener = urllib.request.build_opener(proxy)
-        urllib.request.install_opener(opener)
+        if 'HTTP_PROXY' in os.environ and 'HTTPS_PROXY' in os.environ:
+            proxy = urllib.request.ProxyHandler({'http': os.environ['HTTP_PROXY'], 'https': os.environ['HTTPS_PROXY']})
+            opener = urllib.request.build_opener(proxy)
+            urllib.request.install_opener(opener)
 
         session = requests.Session()
         retry = Retry(connect=3, backoff_factor=0.5)
