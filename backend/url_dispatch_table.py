@@ -1,10 +1,13 @@
 from url_registry import UrlRegistry
+import crawl_impl as ci
 
 """
 A class that stores a mapping from URLs to functions and flags.
 The functions in the mapping are called 'dispatch functions'.
 The flags are used to control the behavior of the dispatch functions.
 """
+
+
 class DispatchFlags:
     NONE = 0 << 0
     SKIP = 1 << 0
@@ -12,22 +15,21 @@ class DispatchFlags:
 
 class UrlDispatchTable(object):
     DISPATCH_TABLE = [
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x,
-        lambda x: x
+        lambda url: ci.crawl_la_olivia(url),
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None,
+        lambda url: None
     ]
     """
     A list of dispatch functions that are used to populate the dispatch table.
     """
-
 
     def __init__(self, registry: UrlRegistry, init_flags=DispatchFlags.NONE):
         """
@@ -37,7 +39,8 @@ class UrlDispatchTable(object):
         param init_flags: An integer representing the initial flags for each dispatch function in the table.
         """
         self.table = {}
-        assert len(self.DISPATCH_TABLE) == len(registry.get_urls), 'Dispatch table length is different from url registry length'
+        assert len(self.DISPATCH_TABLE) == len(
+            registry.get_urls), 'Dispatch table length is different from url registry length'
         for url in registry.get_urls:
             self.table[url] = (init_flags, None)
         self._populate()
@@ -51,7 +54,7 @@ class UrlDispatchTable(object):
             assert func is not None and callable(func) and func.__name__ == '<lambda>'
         print(f'Dispatch table online - {i} dispatch pairs available')
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> []:
         """
         Calls the dispatch functions in the table for each URL.
 
@@ -59,9 +62,15 @@ class UrlDispatchTable(object):
         param kwargs: Keyword arguments to be passed to the dispatch functions.
         """
         print(f'Invoking dispatch table... {len(self.table)} entries')
+        ret = []
         for k, v in self.table.items():
             (flags, func) = v
-            func(k)
+            r = func(k)
+            if r is not None:
+                ret.append(r)
+            else:
+                print(f'Failed to crawl url: \'{k}\'')
+        return ret
 
     def _populate(self):
         """
