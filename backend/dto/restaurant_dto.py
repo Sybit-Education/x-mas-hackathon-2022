@@ -6,4 +6,5 @@ class RestaurantDto:
         self.homepage = ''
         self.lunch_source = ''
         self.city = ''
+        self.crawler_id = None
         self.menus = []
