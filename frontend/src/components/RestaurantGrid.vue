@@ -1,15 +1,15 @@
 <template>
-  <div class="grid-container">
-    <div class="restaurant">TestRestaurant</div>
-    <div class="desc">Mehr infos</div>
-    <div class="desc">
-      <p><a class="link" href="https://www.google.de/">Zum Mittagstisch</a>
-      </p></div>
-    <div class="restaurant">TestRestaurant2</div>
-    <div class="desc">Beschreibung</div>
-    <div class="desc">
-      <p><a class="link" href="https://www.google.de/">Zum Mittagstisch</a></p>
-    </div>
+<li v-for="lunch in lunches">
+ <div class="grid-container">
+    <div class="restaurant">{{lunch.restaurant_id}}</div>
+    <div class="name">{{lunch.name}}</div>
+    <div class="desc">{{lunch.description}}</div>
+    <div class="price">{{lunch.price}}€</div>
+    <div class="desc"></div>
+  </div>
+</li>
+  <div>
+    {{ raw }}
   </div>
 </template>
 
@@ -17,28 +17,32 @@
 export default {
   data() {
     return {
-      
-      lunch: {
-        id: String,
-        createdTime: String,
-        fields: Array<{ 
-          date: Date,
-          restaurant: String,
-          name: String,
-          description: String,
-          Price: GLfloat
-        }>
-      }
+      lunches: {
+        restaurant_id: String,
+        date: Date,
+        name: String,
+        description: String,
+        price: parseFloat
+      }=[]
     }
   },
   created() {
-    fetch('http:127.0.0.1:5000/v1/lunch').then(response => {
-      this.lunch = response
-    }, error => {
+    fetch(':5000/v1/lunch').then(response => { this.raw = response.json}, error => {
       console.log(error)
     }
     )
-    console.log(this.lunch)
+  }
+  computed() {
+  let lunches: lunches;
+    for(rawData in raw){
+        restaurant_id: rawData.restaurant_id,
+        date: rawData.date,
+        name: rawData.name,
+        description: rawData.description,
+        price: rawData.price
+        lunches.add({restaurant_id,date,name,description,price})
+    }
+    this.lunches = lunches;
   }
 }
 </script>
