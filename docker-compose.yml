@@ -1,0 +1,28 @@
+
+version: '3.9'
+
+services:
+
+ # This is the server serving the backend API
+  backend:
+    image: docker.sybit.dev/portainer/portainer-ce
+    container_name: x-mas-backend
+    restart: unless-stopped
+    networks:
+      - x_mas_network
+
+
+  # This is the webserver serving the frontend
+  frontend:
+    image:
+    container_name: x-max-frontend
+    restart: always
+    networks:
+    - x_mas_network
+    ports:
+      - "8080:80"
+
+
+networks:
+  x_mas_network:
+    name: x_mas_network
