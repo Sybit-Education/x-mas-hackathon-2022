@@ -1,5 +1,6 @@
 from crawlers import la_olivia
 from dto.restaurant_dto import RestaurantDto
+from dto.menu_dto import MenuDto
 from crawlers import la_olivia, biocatering_safran
 from url_registry import UrlRegistry
 from services.lunch import add_lunch
@@ -70,7 +71,8 @@ class UrlDispatchTable(object):
                     rid = r.id
                     break
             for m in r.menus:
-                m = datetime.now()
+                mm: MenuDto = m
+                mm.date = datetime.now()
                 add_lunch(rid, m)
             ret.append(r)
         return ret
