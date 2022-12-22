@@ -9,41 +9,36 @@
   </div>
 </li>
   <div>
-    {{ raw }}
+    {{ lunches }}
   </div>
 </template>
 
 <script lang="ts">
 export default {
   data() {
-    return {
-      lunches: {
-        restaurant_id: String,
-        date: Date,
-        name: String,
-        description: String,
-        price: parseFloat
-      }=[]
+    return{
+      lunches: Array<{}>
     }
   },
   created() {
-    fetch(':5000/v1/lunch').then(response => { this.raw = response.json}, error => {
+    fetch(':5000/v1/lunch').then(response => {
+      let raw:{} = JSON.stringify(response)
+      let lunches: Array<{}> = new Array<{}>();
+      for(let rawData in raw){
+        let restaurant_id = rawData.restaurant_id;
+            let date = rawData.date;
+            let name = rawData.name;
+            let description = rawData.description;
+            let price = rawData.price;
+        lunches.push({restaurant_id:restaurant_id,date:date,name:name,description:description,price:price});
+      }
+      this.lunches = lunches;
+
+        }, error => {
       console.log(error)
     }
     )
-  }
-  computed() {
-  let lunches: lunches;
-    for(rawData in raw){
-        restaurant_id: rawData.restaurant_id,
-        date: rawData.date,
-        name: rawData.name,
-        description: rawData.description,
-        price: rawData.price
-        lunches.add({restaurant_id,date,name,description,price})
-    }
-    this.lunches = lunches;
-  }
+  },
 }
 </script>
 
