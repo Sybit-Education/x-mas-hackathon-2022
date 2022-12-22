@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 from dto import *
 from crawler import Crawler
+from dto.menu_dto import MenuDto
+from dto.restaurant_dto import RestaurantDto
 
 
 def clean(x: str) -> str:
