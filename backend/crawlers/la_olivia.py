@@ -1,4 +1,4 @@
-from base_crawler import BaseCrawler
+from crawlers import BaseCrawler
 from bs4 import BeautifulSoup
 from crawler import Crawler
 from dto.menu_dto import MenuDto
