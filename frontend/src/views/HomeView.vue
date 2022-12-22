@@ -1,6 +1,4 @@
 <template>
-  <img src="../assets/milanesa-napolitana-ensalada.jpg">
-
   <lunch-list />
 </template>
 
