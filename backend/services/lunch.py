@@ -35,6 +35,7 @@ def add_lunch(restaurant_id, menu_dto):
     menu["Name"] = menu_dto.name
     menu["Description"] = menu_dto.description
     menu["Price"] = menu_dto.price
+    menu["Date"] = menu_dto.date
 
     table.create(menu)
 
@@ -48,8 +49,6 @@ def delete_lunch(restaurant_id):
 
     for records in table.iterate(page_size=1, max_records=1000,
                                  formula="Restaurant='" + restaurant_id + "' "):
-        print(records)
-
         delete_ids = []
         for record in records:
             delete_ids.append(record.id)

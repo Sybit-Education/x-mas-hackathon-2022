@@ -11,7 +11,6 @@ def get_all_restaurants():
     restaurants = []
     for records in table.iterate(page_size=1, max_records=1000, view="public"):
         for record in records:
-            print(record)
             fields = record["fields"]
             restaurant = RestaurantDto(record['id'])
             restaurant.name = fields["Name"]
