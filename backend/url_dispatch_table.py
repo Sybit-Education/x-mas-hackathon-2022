@@ -36,10 +36,10 @@ class UrlDispatchTable(object):
         for k, v in self.table.items():
             assert k is not None and v is not None
             (flags, func) = v
-            if (flags & DispatchFlags.SKIP) != 0:
+            if (flags & DispatchFlags.SKIP) != 0 or func is None or not callable(func):
+                print(f'Missing function crawler for url: \'{k}\'')
                 continue
             i += 1
-            assert func is not None and callable(func) and func.__name__ == '<lambda>'
         print(f'Dispatch table online - {i} dispatch pairs available')
 
     def __call__(self, *args, **kwargs) -> []:
