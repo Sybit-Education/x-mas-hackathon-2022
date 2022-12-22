@@ -8,3 +8,4 @@ airtable~=0.4.8
 urllib3~=1.26.13
 pyairtable~=1.4.0
 APScheduler~=3.9.1.post1
+flask-cors~=3.0.10
