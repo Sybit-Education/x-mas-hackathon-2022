@@ -37,3 +37,21 @@ def add_lunch(restaurant_id, menu_dto):
     menu["Price"] = menu_dto.price
 
     table.create(menu)
+
+
+def delete_lunch(restaurant_id):
+    print("Delete lunch: restaurant_id=" + restaurant_id)
+
+    api_key = os.environ['AIRTABLE_API_KEY']
+    base_key = os.environ['AIRTABLE_BASE_KEY']
+    table = Table(api_key, base_key, "Lunch")
+
+    for records in table.iterate(page_size=1, max_records=1000,
+                                 formula="Restaurant='" + restaurant_id + "' "):
+        print(records)
+
+        delete_ids = []
+        for record in records:
+            delete_ids.append(record.id)
+
+        table.batch_delete(delete_ids)
