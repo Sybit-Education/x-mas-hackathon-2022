@@ -16,8 +16,6 @@ class DispatchFlags:
 class UrlDispatchTable(object):
     DISPATCH_TABLE = [
         lambda url: la_olivia.LaOliviaCrawler().crawl(url),
-        lambda url: None,
-        lambda url: None
     ]
     """
     A list of dispatch functions that are used to populate the dispatch table.
@@ -31,8 +29,6 @@ class UrlDispatchTable(object):
         param init_flags: An integer representing the initial flags for each dispatch function in the table.
         """
         self.table = {}
-        assert len(self.DISPATCH_TABLE) == len(
-            registry.get_urls), 'Dispatch table length is different from url registry length'
         for url in registry.get_urls:
             self.table[url] = (init_flags, None)
         self._populate()
