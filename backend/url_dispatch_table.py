@@ -2,6 +2,7 @@ from crawlers import la_olivia
 from dto.restaurant_dto import RestaurantDto
 from url_registry import UrlRegistry
 from services.lunch import add_lunch
+from services.restaurant import get_all_restaurants
 
 """
 A class that stores a mapping from URLs to functions and flags.
@@ -60,8 +61,13 @@ class UrlDispatchTable(object):
             if (v.flags & DispatchFlags.SKIP) != 0:
                 continue
             r: RestaurantDto = v.delegate(v.url)
+            rid = None
+            for r in get_all_restaurants():
+                if r.crawler_id == v.id:
+                    rid = r.id
+                    break
             for m in r.menus:
-                add_lunch(r.id, m)
+                add_lunch(rid, m)
             ret.append(r)
         return ret
 
