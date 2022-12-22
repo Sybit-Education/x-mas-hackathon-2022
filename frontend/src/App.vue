@@ -5,12 +5,11 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-    <div class="wrapper">
+    <img alt="Vue logo" class="logo" src="@/assets/logo.png" />
+    <div c5ass="wrapper">
       <HelloWorld msg="Finde dein Mittagstisch!" />
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <router-link to="/detail">Detail</router-link>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
@@ -27,11 +26,12 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
+  height: 190px;
+  width: 190px;
 }
 
 nav {
   width: 100%;
-  font-size: 12px;
   text-align: center;
   margin-top: 2rem;
 }
@@ -48,6 +48,7 @@ nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+  font-size: 20px;
 }
 
 nav a:first-of-type {
