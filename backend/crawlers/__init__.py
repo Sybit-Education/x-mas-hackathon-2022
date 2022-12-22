@@ -7,5 +7,5 @@ class BaseCrawler(ABC):
     def crawl(self, url: str) -> RestaurantDto:
         pass
 
-    def clean(x: str) -> str:
-        return ''.join([i if ord(i) < 0x7F else ' ' for i in x.replace('€', 'Euro')])
+    def clean(self, url: str) -> str:
+        return ''.join([i if ord(i) < 0x7F else ' ' for i in url.replace('€', 'Euro')])

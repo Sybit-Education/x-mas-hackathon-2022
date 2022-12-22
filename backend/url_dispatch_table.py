@@ -53,7 +53,9 @@ class UrlDispatchTable(object):
         ret = []
         for k, v in self.table.items():
             (flags, func) = v
-            r = func(k)
+            r = None
+            if v is not None and func is not None:
+                r = func(k)
             if r is not None:
                 ret.append(r)
             else:
