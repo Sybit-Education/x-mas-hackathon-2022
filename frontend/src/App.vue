@@ -7,10 +7,10 @@ import HelloWorld from './components/HelloWorld.vue'
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.png" />
     <div c5ass="wrapper">
-      <HelloWorld msg="Finde dein Mittagstisch!" />
+      <hello-world msg="Finde deinen Mittagstisch!" />
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <router-link to="/">Home</router-link>
+        <router-link to="/about">About</router-link>
       </nav>
     </div>
   </header>
