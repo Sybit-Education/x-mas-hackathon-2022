@@ -1,5 +1,5 @@
+from crawlers import la_olivia
 from url_registry import UrlRegistry
-import crawl_impl as ci
 
 """
 A class that stores a mapping from URLs to functions and flags.
@@ -15,7 +15,7 @@ class DispatchFlags:
 
 class UrlDispatchTable(object):
     DISPATCH_TABLE = [
-        lambda url: ci.crawl_la_olivia(url),
+        lambda url: la_olivia.LaOliviaCrawler().crawl(url),
         lambda url: None,
         lambda url: None
     ]
