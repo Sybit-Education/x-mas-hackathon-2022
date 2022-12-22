@@ -1,6 +1,10 @@
 from services.restaurant import get_all_restaurants
 from os import getcwd, name as osname
 
+class UrlEntry:
+    def __init__(self, id, url):
+        self.id = id
+        self.url = url
 
 class UrlRegistry(object):
     """
@@ -21,26 +25,12 @@ class UrlRegistry(object):
         restaurants = get_all_restaurants()
         self._urls = []
         for r in restaurants:
-            self._urls.append(r.lunch_source)
+            self._urls.append(UrlEntry(id=r.crawler_id, url=r.lunch_source))
         for url in opt_urls:
             self._urls.append(url)
-        self._urls = [(lambda x: x.lower())(x) for x in self._urls]
         for i in range(len(self._urls)):
-            print(f'Url #{i}: \'{self._urls[i]}\'')
+            print(f'Url #{i}: \'{self._urls[i].url}\'')
         print(f'URL registry online {len(self._urls)} available')
-
-    def lookup(self) -> int:
-        """
-        Look up the number of URLs in the registry.
-
-        Returns:
-        int: The number of URLs in the registry.
-        """
-        i: int = 0
-        for url in self._urls:
-            print(url)
-            i += 1
-        return i
 
     @property
     def get_urls(self):

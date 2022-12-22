@@ -3,8 +3,8 @@
   <RestaurantGrid />
 </template>
 
-<script>
-import RestaurantGrid from "@/components/RestaurantGrid.vue";
+<script lang="ts">
+import RestaurantGrid from "@/components/RestaurantGrid.vue"
 export default {
   name: "DetailView",
   components: { RestaurantGrid },
