@@ -1,9 +1,7 @@
 <template>
   <div class="input-group">
-    <div class="form-outline">
-      <input id="search-input" type="search" class="form-control" />
-      <button class="form-button" size="lg">Search</button>
-    </div>
+    <input id="search-input" type="search" class="form-control"/>
+    <button class="btn" type="submit">Button</button>
   </div>
 </template>
 
@@ -14,8 +12,9 @@ export default {
 </script>
 
 <style>
-.form-button {
+.btn{
   background-color: #00bd7e;
-  height: auto;
+  height: 30px;
+  border-color: #00bd7e;
 }
 </style>

@@ -10,10 +10,8 @@ import Searchbar from "@/components/Searchbar.vue"
 <style>
 img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 15px auto 20px;
   width: 50%;
-  padding: 0 15px 15px 0;
 }
 input{
   width: 87%;

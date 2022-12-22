@@ -1,9 +1,17 @@
 <template>
-  <div>
-    <button @click="$router.push({ name: 'home' })">Go Back</button>
+  <h1 class="header">Details</h1>
+  <div class="grid-container">
+    <div class="restaurant">TestRestaurant</div>
+    <div class="desc">Mehr infos</div>
+    <div class="desc">
+      <p><a class="link" href="https://www.google.de/">Zum Mittagstisch</a>
+      </p></div>
+    <div class="restaurant">TestRestaurant2</div>
+    <div class="desc">Beschreibung</div>
+    <div class="desc">
+      <p><a class="link" href="https://www.google.de/">Zum Mittagstisch</a></p>
+    </div>
   </div>
-  <h1>Details</h1>
-  <p>Name</p>
 </template>
 
 <script>
@@ -13,7 +21,23 @@ export default {
 </script>
 
 <style>
-button{
-  background-color: #00bd7e;
+.header {
+  color: #00bd7e;
+  margin-bottom: 15px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
+.restaurant {
+  color: #07d995;
+  font-size: large;
+}
+
+.link {
+  color: #3ca2ef;
 }
 </style>
