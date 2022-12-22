@@ -15,7 +15,7 @@ def get_menu(soup: BeautifulSoup, k: str, f) -> MenuDto:
     description = menu.find('p', attrs={'style': 'text-align: center;'}).contents
     description = clean(f(description))
     price = clean(menu.find_all('h6')[1].contents[0])
-    return MenuDto(name=name, description=description, price=price)
+    return MenuDto(name=name, date="", description=description, price=price) # FIXME: add correct date
 
 
 def crawl_la_olivia(url: str) -> RestaurantDto:

@@ -16,7 +16,8 @@ def get_all_restaurants():
             restaurant = RestaurantDto(record['id'])
             restaurant.name = fields["Name"]
             restaurant.homepage = fields["Homepage"]
-            restaurant.lunch_source = fields["Link_Mittagstisch"]
+            restaurant.lunch_source = fields["Link_for_Lunch"]
+            restaurant.city = fields["City"]
 
             restaurants.append(restaurant)
     return restaurants
