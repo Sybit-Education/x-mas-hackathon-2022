@@ -1,3 +1,5 @@
+from typing import List, Type
+
 from crawlers import BaseCrawler
 from bs4 import BeautifulSoup
 from crawler import Crawler
@@ -19,7 +21,7 @@ class BioCateringSafranCrawler(BaseCrawler):
         return MenuDto(name=day_menu, date=date.today(), description=day_menu,
                        price="8 Euro - 15 Euro", restaurant_id=restaurant_id)  # FIXME add correct date!
 
-    def crawl(self, restaurant: RestaurantDto) -> list[MenuDto]:
+    def crawl(self, restaurant: RestaurantDto) -> Type[list[MenuDto]]:
         soup = BeautifulSoup(Crawler.crawl(restaurant.lunch_source), 'html.parser')
         result = list[MenuDto]
         day = datetime.weekday(datetime.now())
