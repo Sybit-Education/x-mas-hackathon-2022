@@ -6,9 +6,9 @@ from dto.restaurant_dto import RestaurantDto
 from datetime import datetime
 
 
-class BioCateringCrawler(BaseCrawler):
+class BioCateringSafranCrawler(BaseCrawler):
 
-    def get_menu(self, soup: BeautifulSoup, day: int, f) -> MenuDto:
+    def get_menu(self, soup: BeautifulSoup, restaurant_id: str, day: int, f) -> MenuDto:
         menus = soup.find_all('p', attrs={'class': 'elementor-icon-box-description'})
         i = 0
         for menu in menus:
@@ -16,15 +16,15 @@ class BioCateringCrawler(BaseCrawler):
                 day_menu = self.clean(menu.contents[0].replace("\t", "").replace("\n", ""))
                 break
             i += 1
-        return MenuDto(name=day_menu, date="", description=day_menu, price="8 Euro - 15 Euro")
+        return MenuDto(name=day_menu, date="", description=day_menu,
+                       price="8 Euro - 15 Euro", restaurant_id=restaurant_id)  # FIXME add date!
 
-    def crawl(self, url: str) -> RestaurantDto:
-        soup = BeautifulSoup(Crawler.crawl(url), 'html.parser')
-        result = RestaurantDto()
-        result.name = 'Biocatering Safran'
+    def crawl(self, restaurant: RestaurantDto) -> list[MenuDto]:
+        soup = BeautifulSoup(Crawler.crawl(restaurant.lunch_source), 'html.parser')
+        result = list[MenuDto]
         day = datetime.weekday(datetime.now())
-        if day < 7: # Ohne Sonntag
-            menu = self.get_menu(soup, day, lambda x: f'{x[1]} {x[3]}')
+        if day < 7:  # Ohne Sonntag
+            menu = self.get_menu(soup, restaurant.id, day, lambda x: f'{x[1]} {x[3]}')
             if menu.name != 'Ruhetag':
-                result.menus.append(menu)
+                result.append(menu)
         return result

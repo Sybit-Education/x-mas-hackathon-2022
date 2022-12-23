@@ -61,7 +61,7 @@ class UrlDispatchTable(object):
         for k, v in self.table.items():
             if (v.flags & DispatchFlags.SKIP) != 0:
                 continue
-            r: RestaurantDto = v.delegate(v.url)
+            r: list[MenuDto] = v.delegate(v)
             rid = None
             for r in get_all_restaurants():
                 if r.crawler_id == v.id:
