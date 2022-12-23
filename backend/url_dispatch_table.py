@@ -1,11 +1,11 @@
-from crawlers import la_olivia
 from dto.restaurant_dto import RestaurantDto
 from dto.menu_dto import MenuDto
-from crawlers import la_olivia, biocatering_safran
 from url_registry import UrlRegistry
 from services.lunch import add_lunch
 from services.restaurant import get_all_restaurants
 from datetime import datetime
+from pyairtable.utils import datetime_to_iso_str
+from crawlers.__register__ import register_crawlers
 
 """
 A class that stores a mapping from URLs to functions and flags.
@@ -27,10 +27,7 @@ class UrlDispatchTable(object):
             self.url = url
             self.flags = flags
 
-    DISPATCH_TABLE = {
-        'la_oliva': lambda url: la_olivia.LaOliviaCrawler().crawl(url),
-        'safran': lambda url: biocatering_safran.BioCateringCrawler().crawl(url)
-    }
+    DISPATCH_TABLE = register_crawlers()
     """
     A list of dispatch functions that are used to populate the dispatch table.
     """
@@ -72,7 +69,7 @@ class UrlDispatchTable(object):
                     break
             for m in r.menus:
                 mm: MenuDto = m
-                mm.date = datetime.now()
+                mm.date = datetime_to_iso_str(datetime.now())
                 add_lunch(rid, m)
             ret.append(r)
         return ret
