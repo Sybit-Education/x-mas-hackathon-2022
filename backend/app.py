@@ -1,4 +1,6 @@
 import json
+import os
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
 from flask_cors import CORS, cross_origin
@@ -12,6 +14,8 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+
+crawling_interval = os.environ['CRAWLER_INTERVAL_MIN'] if 'CRAWLER_INTERVAL_MIN' in os.environ else 1
 scheduler = BackgroundScheduler()
 scheduler.start()
 
@@ -20,7 +24,7 @@ dispatch_table = UrlDispatchTable(registry)
 dispatch_table()
 
 
-@scheduler.scheduled_job('interval', minutes=1)
+@scheduler.scheduled_job('interval', minutes=crawling_interval)
 def scheduled_job():
     global registry
     global dispatch_table
