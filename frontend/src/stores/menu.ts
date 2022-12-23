@@ -2,14 +2,12 @@ import type { Menu } from "@/interfaces/Menu";
 import { MenuService } from "@/services/menu.service";
 import { defineStore } from "pinia";
 
-export const useMenuStore = defineStore("meun", {
+export const useMenuStore = defineStore("menu", {
   state: () => ({
     menus: [] as Array<Menu>,
   }),
   getters: {
-    getAll: (state) => state.menus,
-    getById: (state) => (id: string) =>
-      state.menus.find((restaurant: Menu) => restaurant.id === id),
+    getAll: (state) => state.menus
   },
   actions: {
     async init() {
