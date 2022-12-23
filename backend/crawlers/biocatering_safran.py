@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from crawler import Crawler
 from dto.menu_dto import MenuDto
 from dto.restaurant_dto import RestaurantDto
-from datetime import datetime
+from datetime import datetime, date
 
 
 class BioCateringSafranCrawler(BaseCrawler):
@@ -16,8 +16,8 @@ class BioCateringSafranCrawler(BaseCrawler):
                 day_menu = self.clean(menu.contents[0].replace("\t", "").replace("\n", ""))
                 break
             i += 1
-        return MenuDto(name=day_menu, date="", description=day_menu,
-                       price="8 Euro - 15 Euro", restaurant_id=restaurant_id)  # FIXME add date!
+        return MenuDto(name=day_menu, date=date.today(), description=day_menu,
+                       price="8 Euro - 15 Euro", restaurant_id=restaurant_id)  # FIXME add correct date!
 
     def crawl(self, restaurant: RestaurantDto) -> list[MenuDto]:
         soup = BeautifulSoup(Crawler.crawl(restaurant.lunch_source), 'html.parser')
