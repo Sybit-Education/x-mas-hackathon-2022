@@ -9,34 +9,36 @@
         <td>Preis</td>
       </tr>
     </thead>
-    <tr v-for="menu in menuList">
+    <tr v-for="(menu, index) in menuList" :key="index">
       <td>
-        {{  menu.restaurant_id }}
+        <restaurant-label :restaurant-id="menu.restaurant_id" />
       </td>
       <td>
-        {{  menu.date }}
+        {{ menu.date }}
       </td>
       <td>
         <h5>{{ menu.name }}</h5>
       </td>
       <td>
-        {{  menu.description }}
+        {{ menu.description }}
       </td>
       <td>
-        {{  menu.price }}
+        {{ menu.price }}
       </td>
     </tr>
   </table>
 </template>
 <script lang="ts">
-import { mapState } from 'pinia';
-import { useMenuStore } from '../stores/menu';
+import { mapState } from 'pinia'
+import { useMenuStore } from '../stores/menu'
+import RestaurantLabel from './RestaurantLabel.vue'
 
 export default {
   name: 'LunchList',
+  components: { RestaurantLabel },
   computed: {
     ...mapState(useMenuStore, {
-      menuList: (store) => store.getAll
+      menuList: (store) => store.getAll,
     }),
   },
 }
