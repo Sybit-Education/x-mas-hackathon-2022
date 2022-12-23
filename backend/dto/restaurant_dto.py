@@ -1,6 +1,5 @@
-
 class RestaurantDto:
-    def __init__(self, restaurant_id=''):
+    def __init__(self, restaurant_id: str = ''):
         self.id = restaurant_id
         self.name = ''
         self.homepage = ''
