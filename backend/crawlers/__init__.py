@@ -15,10 +15,3 @@ class BaseCrawler(ABC):
         x = x.replace('Ö', 'Oe').replace('ö', 'oe')
         x = x.replace('Ü', 'Ue').replace('ü', 'ue')
         return ''.join([i if ord(i) < 0x7F else ' ' for i in x.replace('€', 'Euro')])
-
-
-# Add crawlers here
-crawler_list = dict()
-crawler_list.pop('la_oliva', LaOliviaCrawler())
-crawler_list.pop('safran', BioCateringSafranCrawler())
-crawler_list.pop('vulcano', VulcanoCrawler())
