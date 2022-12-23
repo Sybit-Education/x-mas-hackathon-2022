@@ -70,7 +70,7 @@ class UrlDispatchTable(object):
             for m in r.menus:
                 mm: MenuDto = m
                 mm.date = datetime_to_iso_str(datetime.now())
-                add_lunch(rid, m)
+                add_lunch(m)
             ret.append(r)
         return ret
 
