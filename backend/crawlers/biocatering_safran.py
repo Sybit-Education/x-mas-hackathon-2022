@@ -13,10 +13,10 @@ class BioCateringCrawler(BaseCrawler):
         i = 0
         for menu in menus:
             if i == day:
-                dayMenu = self.clean(menu.contents[0].replace("\t", "").replace("\n", ""))
+                day_menu = self.clean(menu.contents[0].replace("\t", "").replace("\n", ""))
                 break
             i += 1
-        return MenuDto(name=dayMenu, date="", description=dayMenu, price="8 Euro - 15 Euro")  
+        return MenuDto(name=day_menu, date="", description=day_menu, price="8 Euro - 15 Euro")
 
     def crawl(self, url: str) -> RestaurantDto:
         soup = BeautifulSoup(Crawler.crawl(url), 'html.parser')
