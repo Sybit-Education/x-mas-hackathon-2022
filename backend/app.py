@@ -22,12 +22,18 @@ dispatch_table()
 
 @scheduler.scheduled_job('interval', minutes=1)
 def scheduled_job():
-    print("This job is run every minute.")
+    global registry
+    global dispatch_table
+    registry = UrlRegistry()
+    dispatch_table = UrlDispatchTable(registry)
+    dispatch_table()
+    print("This job is executed every minute.")
 
 
 @app.route('/lunch', methods=['GET'])
 @cross_origin()
 def route_get_lunch():
+    global dispatch_table
     return json.dumps(dispatch_table(), default=vars)
 
 
