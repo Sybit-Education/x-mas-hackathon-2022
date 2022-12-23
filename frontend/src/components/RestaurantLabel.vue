@@ -11,16 +11,16 @@ import { useRestaurantStore } from '../stores/restaurant'
 
 export default {
   name: 'RestaurantLabel',
-  setup() {
-    const store = useRestaurantStore()
-
-    return { getById: store.getById }
-  },
   props: {
     restaurantId: {
       type: String,
       required: true,
     },
+  },
+  setup() {
+    const store = useRestaurantStore()
+
+    return { getById: store.getById }
   },
 }
 </script>

@@ -2,11 +2,10 @@
   <table width="100%">
     <thead>
       <tr>
-        <td>Restaurant</td>
-        <td>Datum</td>
-        <td>Menü</td>
-        <td>Beschreibung</td>
-        <td>Preis</td>
+        <th>Restaurant</th>
+        <th>Datum</th>
+        <th>Menü</th>
+        <th>Preis</th>
       </tr>
     </thead>
     <tr v-for="(menu, index) in menuList" :key="index">
@@ -17,10 +16,8 @@
         {{ menu.date }}
       </td>
       <td>
-        <h5>{{ menu.name }}</h5>
-      </td>
-      <td>
-        {{ menu.description }}
+        <h4>{{ menu.name }}</h4>
+        <p>{{ menu.description }}</p>
       </td>
       <td>
         {{ menu.price }}
