@@ -10,7 +10,6 @@
 
 <style>
 .about {
-  text-align: center;
   font-size: 20px;
   padding-top: 20px;
 }

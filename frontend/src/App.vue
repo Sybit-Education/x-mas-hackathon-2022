@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderBox from './components/HeaderBox.vue'
 </script>
 
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.png" />
     <div c5ass="wrapper">
-      <hello-world msg="Finde deinen Mittagstisch!" />
+      <header-box msg="Finde deinen Mittagstisch!" />
       <nav>
         <router-link to="/">Home</router-link>
         <router-link to="/about">About</router-link>
@@ -26,8 +26,8 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
-  height: 190px;
-  width: 190px;
+  height: 6rem;
+  width: 6rem;
 }
 
 nav {
@@ -54,7 +54,6 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-
 
 @media (min-width: 1024px) {
   header {
