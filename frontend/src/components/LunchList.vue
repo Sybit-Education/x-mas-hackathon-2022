@@ -40,3 +40,26 @@ export default {
   },
 }
 </script>
+
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+}
+
+tr:nth-child(even) {
+  background-color: #212121;
+}
+
+tr:nth-child(odd) {
+  background-color: #333333;
+}
+</style>

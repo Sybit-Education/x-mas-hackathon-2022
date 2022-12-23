@@ -2,11 +2,11 @@
   <div v-if="getById(restaurantId)">
     <a v-if="homepage" :href="homepage" target="_blank">
       <img v-if="logo" :src="logo" height="25" /><br />
-      {{ getById(restaurantId).name }}
+      {{ name }}, {{ city }}
     </a>
     <span v-else>
       <img v-if="logo" :src="logo" height="25" /><br />
-      {{ getById(restaurantId).name }}
+      {{ name }}, {{ city }}
     </span>
   </div>
   <div v-else>[loading ...]</div>
@@ -33,6 +33,12 @@ export default {
     },
     logo() {
       return this.getById(this.restaurantId)?.logo
+    },
+    name() {
+      return this.getById(this.restaurantId)?.name
+    },
+    city() {
+      return this.getById(this.restaurantId)?.city
     },
   },
 }
