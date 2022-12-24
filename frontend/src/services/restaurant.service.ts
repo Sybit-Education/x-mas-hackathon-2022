@@ -1,12 +1,13 @@
 import type { Restaurant } from "@/interfaces/Restaurant"
-import api from "./api"
+import { Api } from "./api"
 
-export class RestaurantService {
-  async getList(): Array<Restaurant> {
-    const response = await api.restClient().get(`/restaurant`)
+export class RestaurantService extends Api {
+  async getList(): Promise<Restaurant[]> {
+    const response = await this.restClient().get(`/restaurant`)
     if (response.status === 200) {
       return response.data
     }
     console.error(response)
+    return [] as Array<Restaurant>
   }
 }
