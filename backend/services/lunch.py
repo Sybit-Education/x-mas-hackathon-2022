@@ -23,19 +23,20 @@ def get_today_lunch():
     return lunch_list
 
 
-def add_lunch(menu_dto):
+def add_lunch(menu_dto: MenuDto):
     print("add lunch: restaurant_id=" + menu_dto.restaurant_id + " menu: " + menu_dto.name)
 
     api_key = os.environ['AIRTABLE_API_KEY']
     base_key = os.environ['AIRTABLE_BASE_KEY']
     table = Table(api_key, base_key, "Lunch")
 
-    menu = dict()
-    menu["Restaurant"] = menu_dto.restaurant_id
-    menu["Name"] = menu_dto.name
-    menu["Description"] = menu_dto.description
-    menu["Price"] = menu_dto.price
-    menu["Date"] = menu_dto.date
+    menu = {
+        "Restaurant": menu_dto.restaurant_id,
+        "Name": menu_dto.name,
+        "Description": menu_dto.description,
+        "Price": menu_dto.price,
+        "Date": menu_dto.date
+    }
 
     table.create(menu)
 

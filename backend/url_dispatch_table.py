@@ -1,11 +1,10 @@
-from dto.restaurant_dto import RestaurantDto
 from dto.menu_dto import MenuDto
 from url_registry import UrlRegistry
 from services.lunch import add_lunch
-from services.restaurant import get_all_restaurants
 from datetime import datetime
 from pyairtable.utils import datetime_to_iso_str
 from crawlers.__register__ import register_crawlers
+from url_mapping import UrlMapping, DispatchFlags
 
 """
 A class that stores a mapping from URLs to functions and flags.
@@ -14,19 +13,7 @@ The flags are used to control the behavior of the dispatch functions.
 """
 
 
-class DispatchFlags:
-    NONE = 0 << 0
-    SKIP = 1 << 0
-
-
 class UrlDispatchTable(object):
-    class UrlMapping:
-        def __init__(self, id: str, delegate, url: str, flags: int = DispatchFlags.NONE):
-            self.id = id
-            self.delegate = delegate
-            self.url = url
-            self.flags = flags
-
     DISPATCH_TABLE = register_crawlers()
     """
     A list of dispatch functions that are used to populate the dispatch table.
@@ -43,7 +30,7 @@ class UrlDispatchTable(object):
         i = 0
         for url in registry.get_urls:
             if url.id in self.DISPATCH_TABLE:
-                self.table[url.id] = self.UrlMapping(url.id, self.DISPATCH_TABLE[url.id], url.url)
+                self.table[url.id] = UrlMapping(url.id, self.DISPATCH_TABLE[url.id], url.url)
                 i += i
             else:
                 print(f'Missing crawler for id: \'{url.id}\'')
@@ -58,20 +45,14 @@ class UrlDispatchTable(object):
         """
         print(f'Invoking dispatch table... {len(self.table)} entries')
         ret = []
-        for k, v in self.table.items():
-            if (v.flags & DispatchFlags.SKIP) != 0:
+        for key, value in self.table.items():
+            if (value.flags & DispatchFlags.SKIP) != 0:
                 continue
-            r: list[MenuDto] = v.delegate(v)
-            rid = None
-            for r in get_all_restaurants():
-                if r.crawler_id == v.id:
-                    rid = r.id
-                    break
-            for m in r.menus:
-                mm: MenuDto = m
-                mm.date = datetime_to_iso_str(datetime.now())
-                add_lunch(m)
-            ret.append(r)
+            menus: list[MenuDto] = value.delegate(value)
+            for menu in menus:
+                menu.date = datetime_to_iso_str(datetime.now())
+                add_lunch(menu)
+            ret.append(menus)
         return ret
 
     def __index__(self, k):
