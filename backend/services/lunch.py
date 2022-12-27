@@ -1,9 +1,13 @@
+import logging
 import os
 from datetime import datetime
+from pyairtable.formulas import match, FIND, FIELD
 
+import pyairtable
 from pyairtable import Table
 
 from dto.menu_dto import MenuDto
+from dto.restaurant_dto import RestaurantDto
 
 
 def get_today_lunch():
@@ -24,34 +28,33 @@ def get_today_lunch():
 
 
 def add_lunch(menu_dto: MenuDto):
-    print("add lunch: restaurant_id=" + menu_dto.restaurant_id + " menu: " + menu_dto.name)
+    logging.info("add lunch: menu: %s", menu_dto)
 
     api_key = os.environ['AIRTABLE_API_KEY']
     base_key = os.environ['AIRTABLE_BASE_KEY']
     table = Table(api_key, base_key, "Lunch")
 
     menu = {
-        "Restaurant": menu_dto.restaurant_id,
+        "Restaurant": [menu_dto.restaurant_id],
         "Name": menu_dto.name,
         "Description": menu_dto.description,
         "Price": menu_dto.price,
-        "Date": menu_dto.date
+        "Date": pyairtable.utils.date_to_iso_str(menu_dto.date)
     }
 
     table.create(menu)
 
 
-def delete_lunch(restaurant_id):
-    print("Delete lunch: restaurant_id=" + restaurant_id)
+def delete_lunch(restaurant: RestaurantDto):
+    logging.info("Delete lunch: restaurant_id=%s", restaurant)
 
     api_key = os.environ['AIRTABLE_API_KEY']
     base_key = os.environ['AIRTABLE_BASE_KEY']
     table = Table(api_key, base_key, "Lunch")
+    formula = match({"Restaurant": restaurant.name}, match_any=True)
+    records = table.all(formula=formula)
+    delete_ids = []
+    for record in records:
+        delete_ids.append(record['id'])
 
-    for records in table.iterate(page_size=1, max_records=1000,
-                                 formula="Restaurant='" + restaurant_id + "' "):
-        delete_ids = []
-        for record in records:
-            delete_ids.append(record.id)
-
-        table.batch_delete(delete_ids)
+    table.batch_delete(delete_ids)

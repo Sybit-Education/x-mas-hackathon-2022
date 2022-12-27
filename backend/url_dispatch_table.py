@@ -1,10 +1,15 @@
+from venv import logger
+
+import services
 from dto.menu_dto import MenuDto
-from url_registry import UrlRegistry
-from services.lunch import add_lunch
+from restaurant_registry import RestaurantRegistry
+from services import restaurant
+from services.lunch import add_lunch, delete_lunch
 from datetime import datetime
 from pyairtable.utils import datetime_to_iso_str
 from crawlers.__register__ import register_crawlers
-from url_mapping import UrlMapping, DispatchFlags
+from services.restaurant import get_all_restaurants
+from crawler_mapping import CrawlerMapping
 
 """
 A class that stores a mapping from URLs to functions and flags.
@@ -19,22 +24,19 @@ class UrlDispatchTable(object):
     A list of dispatch functions that are used to populate the dispatch table.
     """
 
-    def __init__(self, registry: UrlRegistry, init_flags=DispatchFlags.NONE):
+    def __init__(self, registry: RestaurantRegistry):
         """
         Initializes the dispatch table.
 
-        param registry: An instance of the `UrlRegistry` class.
-        param init_flags: An integer representing the initial flags for each dispatch function in the table.
+        param registry: An instance of the `RestaurantRegistry` class.
         """
         self.table = {}
-        i = 0
-        for url in registry.get_urls:
-            if url.id in self.DISPATCH_TABLE:
-                self.table[url.id] = UrlMapping(url.id, self.DISPATCH_TABLE[url.id], url.url)
-                i += i
+        for rest in get_all_restaurants():
+            if rest.crawler_id in self.DISPATCH_TABLE:
+                self.table[rest.crawler_id] = CrawlerMapping(rest, self.DISPATCH_TABLE[rest.crawler_id])
             else:
-                print(f'Missing crawler for id: \'{url.id}\'')
-        print(f'Dispatch table online - {i} dispatch pairs available')
+                logger.warn(f'Missing crawler for id: \'{rest.crawler_id}\'')
+        logger.info(f'Dispatch table online - {len(self.table)} dispatch pairs available')
 
     def __call__(self, *args, **kwargs) -> []:
         """
@@ -45,12 +47,12 @@ class UrlDispatchTable(object):
         """
         print(f'Invoking dispatch table... {len(self.table)} entries')
         ret = []
-        for key, value in self.table.items():
-            if (value.flags & DispatchFlags.SKIP) != 0:
-                continue
-            menus: list[MenuDto] = value.delegate(value)
+        for crawler_id, crawler_mapping in self.table.items():
+            menus: list[MenuDto] = crawler_mapping.delegate(crawler_mapping.restaurant)
+            # first: cleanup table for restaurant
+            if len(menus) > 0:
+                delete_lunch(crawler_mapping.restaurant)
             for menu in menus:
-                menu.date = datetime_to_iso_str(datetime.now())
                 add_lunch(menu)
             ret.append(menus)
         return ret

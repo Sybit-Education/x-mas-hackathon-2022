@@ -7,7 +7,7 @@ from flask_cors import CORS, cross_origin
 
 from services.lunch import get_today_lunch, add_lunch
 from services.restaurant import get_all_restaurants
-from url_registry import UrlRegistry
+from restaurant_registry import RestaurantRegistry
 from url_dispatch_table import UrlDispatchTable
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ crawling_interval = os.environ['CRAWLER_INTERVAL_MIN'] if 'CRAWLER_INTERVAL_MIN'
 scheduler = BackgroundScheduler()
 scheduler.start()
 
-registry = UrlRegistry()
+registry = RestaurantRegistry()
 dispatch_table = UrlDispatchTable(registry)
 dispatch_table()
 
@@ -28,7 +28,7 @@ dispatch_table()
 def scheduled_job():
     global registry
     global dispatch_table
-    registry = UrlRegistry()
+    registry = RestaurantRegistry()
     dispatch_table = UrlDispatchTable(registry)
     dispatch_table()
     print("This job is executed every minute.")
