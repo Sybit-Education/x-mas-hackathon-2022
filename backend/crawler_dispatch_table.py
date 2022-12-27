@@ -18,7 +18,7 @@ The flags are used to control the behavior of the dispatch functions.
 """
 
 
-class UrlDispatchTable(object):
+class CrawlerDispatchTable(object):
     DISPATCH_TABLE = register_crawlers()
     """
     A list of dispatch functions that are used to populate the dispatch table.
