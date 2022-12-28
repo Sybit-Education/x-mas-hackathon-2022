@@ -5,7 +5,7 @@ import HeaderBox from './components/HeaderBox.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.png" />
+    <img class="logo" src="@/assets/logo.png" />
     <div c5ass="wrapper">
       <header-box msg="Finde deinen Mittagstisch!" />
       <nav>
@@ -20,7 +20,6 @@ import HeaderBox from './components/HeaderBox.vue'
 <style scoped>
 header {
   line-height: 1.5;
-  max-height: 100vh;
 }
 
 .logo {

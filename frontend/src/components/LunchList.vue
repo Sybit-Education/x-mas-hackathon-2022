@@ -3,8 +3,8 @@
     <thead>
       <tr>
         <th width="20%">Datum</th>
-        <th>Menü</th>
-        <th width="10%">Preis</th>
+        <th>Menü<sup>1</sup></th>
+        <th width="10%">Preis<sup>1</sup></th>
         <th width="20%">Restaurant</th>
       </tr>
     </thead>
@@ -13,7 +13,7 @@
         {{ menu.date }}
       </td>
       <td>
-        <h4>{{ menu.name }}</h4>
+        <h3>{{ menu.name }}</h3>
         <p>{{ menu.description }}</p>
       </td>
       <td>
@@ -24,6 +24,7 @@
       </td>
     </tr>
   </table>
+  <div><sup>1</sup>Alle Angaben ohne Gewähr!</div>
 </template>
 <script lang="ts">
 import { mapState } from 'pinia'
