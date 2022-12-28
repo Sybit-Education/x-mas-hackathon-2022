@@ -1,5 +1,7 @@
 from typing import List, Type
 
+from price_parser import Price
+
 from crawlers import BaseCrawler
 from bs4 import BeautifulSoup
 from crawler import Crawler
@@ -19,11 +21,11 @@ class BioCateringSafranCrawler(BaseCrawler):
                 break
             i += 1
         return MenuDto(name=day_menu, date=date.today(), description=day_menu,
-                       price="8 Euro - 15 Euro", restaurant_id=restaurant_id)  # FIXME add correct date!
+                       price="8 - 15 €", restaurant_id=restaurant_id)  # FIXME add correct date!
 
     def crawl(self, restaurant: RestaurantDto) -> Type[list[MenuDto]]:
         soup = BeautifulSoup(Crawler.crawl(restaurant.lunch_source), 'html.parser')
-        result = list[MenuDto]
+        result = list()
         day = datetime.weekday(datetime.now())
         if day < 7:  # Ohne Sonntag
             menu = self.get_menu(soup, restaurant.id, day, lambda x: f'{x[1]} {x[3]}')
