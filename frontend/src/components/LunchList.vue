@@ -24,7 +24,7 @@
       </td>
     </tr>
   </table>
-  <div><sup>1</sup>Alle Angaben ohne Gewähr!</div>
+  <div><sup>1</sup>Alle Angaben ohne Gewähr! Die Daten wurden automatisch von den Webseiten ausgelesen.</div>
 </template>
 <script lang="ts">
 import { mapState } from 'pinia'
