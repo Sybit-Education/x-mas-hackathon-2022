@@ -1,4 +1,4 @@
-from venv import logger
+import logging
 
 import services
 from dto.menu_dto import MenuDto
@@ -35,8 +35,8 @@ class CrawlerDispatchTable(object):
             if rest.crawler_id in self.DISPATCH_TABLE:
                 self.table[rest.crawler_id] = CrawlerMapping(rest, self.DISPATCH_TABLE[rest.crawler_id])
             else:
-                logger.warn(f'Missing crawler for id: \'{rest.crawler_id}\'')
-        logger.info(f'Dispatch table online - {len(self.table)} dispatch pairs available')
+                logging.warning(f'Missing crawler for id: \'{rest.crawler_id}\'')
+        logging.info(f'Dispatch table online - {len(self.table)} dispatch pairs available')
 
     def __call__(self, *args, **kwargs) -> []:
         """
