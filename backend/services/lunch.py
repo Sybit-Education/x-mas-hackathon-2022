@@ -20,7 +20,7 @@ def get_today_lunch():
             fields = record["fields"]
             menu = MenuDto(fields["Date"], fields["Name"])
             menu.description = fields["Description"] if "Description" in fields else None
-            menu.price = fields["Price"]
+            menu.price = fields["Price"]  if "Price" in fields else None
             menu.restaurant_id = fields["Restaurant"][0]
             lunch_list.append(menu)
 
@@ -38,7 +38,7 @@ def add_lunch(menu_dto: MenuDto):
         "Restaurant": [menu_dto.restaurant_id],
         "Name": menu_dto.name,
         "Description": menu_dto.description,
-        "Price": menu_dto.price,
+        "Price": menu_dto.price if menu_dto.price is not None else '',
         "Date": pyairtable.utils.date_to_iso_str(menu_dto.date)
     }
 
